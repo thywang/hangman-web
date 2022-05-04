@@ -40,17 +40,23 @@ defmodule Hangman.Impl.Game do
   end
 
   def make_move(game, guess) do
-    accept_guess(game, guess, MapSet.member?(game.used, guess))
+    accept_guess(game, guess, valid_guess(guess), MapSet.member?(game.used, guess))
     |> return_with_tally()
   end
 
   ############################################################
 
-  defp accept_guess(game, _guess, _already_used = true) do
+  defp valid_guess(guess) do
+    guess =~ ~r/[a-z]$/
+  end
+
+  ############################################################
+
+  defp accept_guess(game, _guess, _valid_guess, _already_used = true) do
     %{ game | game_state: :already_used }
   end
 
-  defp accept_guess(game, guess, _already_used) do
+  defp accept_guess(game, guess, _valid_guess = true, _not_used) do
     %{ game | used: MapSet.put(game.used, guess) }
     |> score_guess(Enum.member?(game.letters, guess))
   end
@@ -63,7 +69,7 @@ defmodule Hangman.Impl.Game do
   end
 
   defp score_guess(game = %{ turns_left: 1 }, _bad_guess) do
-    %{ game | game_state: :lost }
+    %{ game | game_state: :lost, turns_left: 0 }
   end
 
   defp score_guess(game, _bad_guess) do
@@ -95,6 +101,6 @@ defmodule Hangman.Impl.Game do
   defp maybe_won(_),    do: :good_guess
 
   defp maybe_reveal(true, letter), do: letter
-  defp maybe_reveal(_, _letter), do: "_"
+  defp maybe_reveal(_,    _letter), do: "_"
 
 end
