@@ -12,7 +12,7 @@ defmodule Hangman do
   }
 
   @spec new_game() :: game
-  defdelegate new_game, to: Game
+  defdelegate new_game(), to: Game
 
   @spec make_move(game, String.t) :: { game, tally }
   # make_move will return a new game state and the tally
