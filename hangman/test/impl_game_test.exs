@@ -73,11 +73,45 @@ defmodule HangmanImplGameTest do
 # molly
   test "can handle a sequence of moves" do
     [
-      # guess | state    turns    letters                    used
-      [ "a",  :bad_guess,  6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
+      # guess | state       turns    letters                    used
+      [ "a",  :bad_guess,     6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
       [ "a",  :already_used,  6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
-      [ "o",  :good_guess, 6,   [ "_", "o", "_", "_", "_"], [ "a", "o" ]],
-      [ "x",  :bad_guess,  5,   [ "_", "o", "_", "_", "_"], [ "a", "o", "x" ]],
+      [ "o",  :good_guess,    6,   [ "_", "o", "_", "_", "_"], [ "a", "o" ]],
+      [ "x",  :bad_guess,     5,   [ "_", "o", "_", "_", "_"], [ "a", "o", "x" ]],
+
+    ]
+    |> test_sequence_of_moves()
+  end
+
+  test "can handle a winning game" do
+    [
+      # guess | state    turns    letters                    used
+      [ "a",  :bad_guess,     6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
+      [ "a",  :already_used,  6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
+      [ "o",  :good_guess,    6,   [ "_", "o", "_", "_", "_"], [ "a", "o" ]],
+      [ "x",  :bad_guess,     5,   [ "_", "o", "_", "_", "_"], [ "a", "o", "x" ]],
+      [ "l",  :good_guess,    5,   [ "_", "o", "l", "l", "_"], [ "a", "l", "o", "x" ]],
+      [ "k",  :bad_guess,     4,   [ "_", "o", "l", "l", "_"], [ "a", "k", "l", "o", "x" ]],
+      [ "m",  :good_guess,    4,   [ "m", "o", "l", "l", "_"], [ "a", "k", "l", "m", "o", "x" ]],
+      [ "y",  :won,           4,   [ "m", "o", "l", "l", "y"], [ "a", "k", "l", "m", "o", "x", "y" ]],
+
+    ]
+    |> test_sequence_of_moves()
+  end
+
+  test "can handle a losing game" do
+    [
+      # guess | state    turns    letters                    used
+      [ "a",  :bad_guess,     6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
+      [ "a",  :already_used,  6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
+      [ "o",  :good_guess,    6,   [ "_", "o", "_", "_", "_"], [ "a", "o" ]],
+      [ "x",  :bad_guess,     5,   [ "_", "o", "_", "_", "_"], [ "a", "o", "x" ]],
+      [ "l",  :good_guess,    5,   [ "_", "o", "l", "l", "_"], [ "a", "l", "o", "x" ]],
+      [ "k",  :bad_guess,     4,   [ "_", "o", "l", "l", "_"], [ "a", "k", "l", "o", "x" ]],
+      [ "b",  :bad_guess,     3,   [ "_", "o", "l", "l", "_"], [ "a", "b", "k", "l", "o", "x" ]],
+      [ "c",  :bad_guess,     2,   [ "_", "o", "l", "l", "_"], [ "a", "b", "c", "k", "l", "o", "x" ]],
+      [ "d",  :bad_guess,     1,   [ "_", "o", "l", "l", "_"], [ "a", "b", "c", "d", "k", "l", "o", "x" ]],
+      [ "e",  :lost,          0,   [ "_", "o", "l", "l", "_"], [ "a", "b", "c", "d", "e", "k", "l", "o", "x" ]],
 
     ]
     |> test_sequence_of_moves()
