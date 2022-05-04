@@ -75,7 +75,7 @@ defmodule HangmanImplGameTest do
     [
       # guess | state    turns    letters                    used
       [ "a",  :bad_guess,  6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
-      [ "a",  :bad_guess,  6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
+      [ "a",  :already_used,  6,   [ "_", "_", "_", "_", "_"], [ "a" ]],
       [ "o",  :good_guess, 6,   [ "_", "o", "_", "_", "_"], [ "a", "o" ]],
       [ "x",  :bad_guess,  5,   [ "_", "o", "_", "_", "_"], [ "a", "o", "x" ]],
 
