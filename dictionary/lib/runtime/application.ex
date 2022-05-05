@@ -1,4 +1,4 @@
-def Dictionary.Runtime.Application do
+defmodule Dictionary.Runtime.Application do
 
     use Application
 
