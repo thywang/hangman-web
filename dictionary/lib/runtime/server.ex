@@ -1,6 +1,6 @@
 defmodule Dictionary.Runtime.Server do
 
-  @type t :: pid()
+  @type t :: pid
 
   @me __MODULE__
 
