@@ -26,6 +26,7 @@ defmodule TextClient.Impl.Player do
 
   def interact({ game, tally }) do
     IO.puts feedback_for(tally)
+    IO.puts current_word(tally)
     # display current word
     # get next guess
     # make move
@@ -41,5 +42,16 @@ defmodule TextClient.Impl.Player do
   # add random comments?
   def feedback_for(_tally = %{ game_state: :bad_guess }),    do: "Sorry, that letter's not in the word"
   def feedback_for(_tally = %{ game_state: :already_used }), do: "Sorry, that letter is already used"
+
+  def current_word(tally) do
+    [
+    "Word so far: ",
+    tally.letters |> Enum.join(" "),
+    "   turns left: ",
+    tally.turns_left |> to_string,
+    "   used so far: ",
+    tally.used |> Enum.join(","),
+    ]
+  end
 
 end
