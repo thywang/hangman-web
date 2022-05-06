@@ -4,10 +4,9 @@ defmodule TextClient.Impl.Player do
   @typep tally :: Hangman.tally
   @typep state :: { game, tally }
 
-  @spec start() :: :ok
-  def start() do
+  @spec start(game) :: :ok
+  def start(game) do
     game = Hangman.new_game()
-    tally = Hangman.tally(game)
     interact({ game, tally })
   end
 
@@ -16,6 +15,7 @@ defmodule TextClient.Impl.Player do
   @spec interact(state) :: :ok
 
   def interact({_game, _tally = %{ game_state: :won }}) do
+    tally = Hangman.tally(game)
     IO.puts "Congratulations. You won!"
   end
 
