@@ -1,10 +1,9 @@
 <div id="game" class="row">
     <div class="column">
         <pre>
-        <%= figure_for(@tally.turns_left) %>
+            <%= figure_for(@tally.turns_left) %>
         </pre>
     </div>
-
     <div class="column">
         <table class="tally">
             <tr>
@@ -24,10 +23,10 @@
         </table>
 
         <%= move_status(@tally.game_state) |> raw %>
-
-        <%= form_for(@conn, Routes.hangman_path(@conn, :update), [ as: "make_move", method: :put ], fn f -> %>
-            <%= text_input(f, :guess) %>
-            <%= submit("Make next guess") %>
+        
+        <%= form_for(@conn, Routes.hangman_path(@conn, :update), [ as: "make_move", method: :put ], fn f ->  %>
+        <%= text_input(f, :guess) %>
+        <%= submit("Make next guess") %>
         <% end) %>
     </div>
 </div>
