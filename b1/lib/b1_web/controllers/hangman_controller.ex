@@ -17,6 +17,7 @@ defmodule B1Web.HangmanController do
     guess = params["make_move"]["guess"]
     game = get_session(conn, :game)
     tally = Hangman.make_move(game, guess)
+    conn = put_in(conn,params["make_move"]["guess"])
     render(conn, "game.html", tally: tally)
   end
 
